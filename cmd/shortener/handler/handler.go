@@ -14,13 +14,14 @@ func NewHandler(services *service.Service) *Handler {
 		services: services,
 	}
 }
-
 func (h Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
 	root := router.Group("/")
-	root.POST("/", h.ShortenURL)
-	root.GET("/:id", h.GetOriginalURL)
+	{
+		root.POST("/", h.ShortenURL)
+		root.GET("/:id", h.GetOriginalURL)
+	}
 
 	return router
 }
