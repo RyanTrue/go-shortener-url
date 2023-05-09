@@ -1,23 +1,22 @@
 package main
 
 import (
-	f "github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
-	h "github.com/RyanTrue/go-shortener-url.git/cmd/shortener/httphandlers"
-	"github.com/gin-gonic/gin"
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/handler"
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/server"
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/service"
 )
 
-func main() {
-	f.ParseFlags()
-	app := gin.Default()
+var repo = make(map[string]string)
 
-	app.POST("/", func(c *gin.Context) {
-		h.ShortenURL(c.Writer, c.Request)
-	})
-	app.GET("/:id", func(c *gin.Context) {
-		h.GetOriginalURL(c.Writer, c.Request)
-	})
-	err := app.Run(f.ServerAddr)
-	if err != nil {
+func main() {
+	config.ParseFlags()
+
+	services := service.NewServiceURL(repo)
+	handler := handler.NewHandler(services)
+	server := new(server.Server)
+
+	if err := server.Run(config.ServerAddr, handler.InitRoutes()); err != nil {
 		panic(err)
 	}
 }
