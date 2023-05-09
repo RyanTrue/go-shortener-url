@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	f.ParseFlags()
 	app := gin.Default()
 
 	app.POST("/", func(c *gin.Context) {
