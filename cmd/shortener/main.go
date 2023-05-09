@@ -4,12 +4,7 @@ import (
 	f "github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
 	h "github.com/RyanTrue/go-shortener-url.git/cmd/shortener/httphandlers"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
-
-func run(m *http.ServeMux) error {
-	return http.ListenAndServe(`:8080`, m)
-}
 
 func main() {
 	app := gin.Default()
