@@ -12,9 +12,9 @@ type URLservice struct {
 	repo map[string]string
 }
 
-func NewURLservice() *URLservice {
+func NewURLservice(m map[string]string) *URLservice {
 	return &URLservice{
-		repo: make(map[string]string),
+		repo: m,
 	}
 }
 

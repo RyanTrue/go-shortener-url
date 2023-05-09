@@ -9,8 +9,8 @@ type Service struct {
 	URL
 }
 
-func NewServiceURL(repo map[string]string) *Service {
+func NewService(repo map[string]string) *Service {
 	return &Service{
-		URL: NewURLservice(),
+		URL: NewURLservice(repo),
 	}
 }

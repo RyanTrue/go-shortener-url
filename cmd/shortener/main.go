@@ -12,7 +12,7 @@ var repo = make(map[string]string)
 func main() {
 	config.InitServerConfig()
 
-	services := service.NewServiceURL(repo)
+	services := service.NewService(repo)
 	handler := handler.NewHandler(services)
 	server := new(server.Server)
 
