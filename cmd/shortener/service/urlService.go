@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"github.com/RyanTrue/go-shortener-url.git/internal/app/config"
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
 )
 
 type urlService struct {

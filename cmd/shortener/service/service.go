@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/RyanTrue/go-shortener-url.git/internal/app/config"
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
 )
 
 type ServiceContainer struct {
