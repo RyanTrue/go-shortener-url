@@ -2,14 +2,15 @@ package handler
 
 import (
 	"flag"
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/service"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
+	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/service"
+	"github.com/gin-gonic/gin"
 )
 
 func TestShortenURL(t *testing.T) {
