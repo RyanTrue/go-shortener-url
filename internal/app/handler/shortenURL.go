@@ -2,7 +2,6 @@ package handler
 
 import (
 	"io"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +12,7 @@ func (h *Handler) ShortenURL(c *gin.Context) {
 
 	data, err := io.ReadAll(body)
 	if err != nil {
-		log.Fatal(c.Writer, "Error reading request body", http.StatusInternalServerError)
+		http.Error(c.Writer, "Error reading request body", http.StatusInternalServerError)
 		return
 	}
 
