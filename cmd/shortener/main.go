@@ -1,22 +1,25 @@
 package main
 
 import (
+	"flag"
 	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
 	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/handler"
 	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/server"
 	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/service"
 )
 
-var repo = make(map[string]string)
-
 func main() {
-	config.InitServerConfig()
+	appConfig := config.AppConfig{}
+	appConfig.InitAppConfig()
+	flag.Parse()
 
-	services := service.NewService(repo)
+	repo := make(map[string]string)
+
+	services := service.NewServiceContainer(repo, appConfig)
 	handler := handler.NewHandler(services)
 	server := new(server.Server)
 
-	if err := server.Run(config.ServerAddr, handler.InitRoutes()); err != nil {
+	if err := server.Run(appConfig.Server.ServerAddr, handler.InitRoutes()); err != nil {
 		panic(err)
 	}
 }

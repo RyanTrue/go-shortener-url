@@ -1,16 +1,16 @@
 package service
 
-type URL interface {
-	ShortenURL(body string) string
-	GetOriginalURL(path string) (string, error)
+import "github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
+
+type ServiceContainer struct {
+	URL urlService
 }
 
-type Service struct {
-	URL
-}
-
-func NewService(repo map[string]string) *Service {
-	return &Service{
-		URL: NewURLservice(repo),
+func NewServiceContainer(repo map[string]string, config config.AppConfig) *ServiceContainer {
+	return &ServiceContainer{
+		URL: urlService{
+			repo:   repo,
+			config: config,
+		},
 	}
 }
