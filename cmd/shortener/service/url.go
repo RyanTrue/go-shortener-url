@@ -7,23 +7,28 @@ import (
 	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
 )
 
-type urlService struct {
-	repo   map[string]string
-	config config.AppConfig
+type URLservice struct {
+	repo map[string]string
 }
 
-func (u *urlService) ShortenURL(body string) string {
+func NewURLservice(m map[string]string) *URLservice {
+	return &URLservice{
+		repo: m,
+	}
+}
+
+func (u *URLservice) ShortenURL(body string) string {
 	hasher := md5.New()
 	hasher.Write([]byte(body))
 	hash := hex.EncodeToString(hasher.Sum(nil))[:8]
-	shortURL := fmt.Sprintf("%s/%s", u.config.Server.DefaultAddr, hash)
+	shortURL := fmt.Sprintf("%s/%s", config.DefaultAddr, hash)
 	if _, ok := u.repo[hash]; !ok {
 		u.repo[hash] = body
 	}
 	return shortURL
 }
 
-func (u *urlService) ExpandURL(path string) (string, error) {
+func (u *URLservice) GetOriginalURL(path string) (string, error) {
 	if value, ok := u.repo[path]; ok {
 		return value, nil
 	} else {

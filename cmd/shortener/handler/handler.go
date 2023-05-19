@@ -6,20 +6,22 @@ import (
 )
 
 type Handler struct {
-	services *service.ServiceContainer
+	services *service.Service
 }
 
-func NewHandler(services *service.ServiceContainer) *Handler {
+func NewHandler(services *service.Service) *Handler {
 	return &Handler{
 		services: services,
 	}
 }
-
 func (h Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	router.POST("/", h.ShortenURL)
-	router.GET("/:id", h.ExpandURL)
+	root := router.Group("/")
+	{
+		root.POST("/", h.ShortenURL)
+		root.GET("/:id", h.GetOriginalURL)
+	}
 
 	return router
 }
