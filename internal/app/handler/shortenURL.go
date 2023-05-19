@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 
@@ -11,6 +12,13 @@ func (h *Handler) ShortenURL(c *gin.Context) {
 	body := c.Request.Body
 
 	data, err := io.ReadAll(body)
+
+	defer func(body io.ReadCloser) {
+		if err := body.Close(); err != nil {
+			fmt.Printf("Failed to close body: %v", err)
+		}
+	}(body)
+
 	if err != nil {
 		http.Error(c.Writer, "Error reading request body", http.StatusInternalServerError)
 		return
