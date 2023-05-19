@@ -6,7 +6,6 @@ import (
 	"github.com/RyanTrue/go-shortener-url.git/internal/app/handler"
 	"github.com/RyanTrue/go-shortener-url.git/internal/app/server"
 	"github.com/RyanTrue/go-shortener-url.git/internal/app/service"
-	"log"
 )
 
 func main() {
@@ -21,6 +20,6 @@ func main() {
 	server := &server.Server{}
 
 	if err := server.Run(appConfig.Server.ServerAddr, handler.InitRoutes()); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
