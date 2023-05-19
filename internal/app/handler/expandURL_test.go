@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/service"
+	"github.com/RyanTrue/go-shortener-url.git/internal/app/config"
+	"github.com/RyanTrue/go-shortener-url.git/internal/app/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/http/httptest"
