@@ -17,7 +17,7 @@ func main() {
 
 	services := service.NewServiceContainer(repo, appConfig)
 	handler := handler.NewHandler(services)
-	server := &server.Server{}
+	server := new(server.Server)
 
 	if err := server.Run(appConfig.Server.ServerAddr, handler.InitRoutes()); err != nil {
 		panic(err)
