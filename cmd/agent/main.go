@@ -2,10 +2,10 @@ package main
 
 import (
 	"flag"
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/config"
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/handler"
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/server"
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/service"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/config"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/server"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/server/handler"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/service"
 	"log"
 )
 

@@ -2,8 +2,8 @@ package handler
 
 import (
 	"flag"
-	"github.com/RyanTrue/go-shortener-url.git/internal/app/config"
-	"github.com/RyanTrue/go-shortener-url.git/internal/app/service"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/config"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/service"
 	"net/http"
 	"net/http/httptest"
 	"os"
