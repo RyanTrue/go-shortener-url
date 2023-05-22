@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/RyanTrue/go-shortener-url.git/cmd/shortener/service"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/service"
 	"github.com/gin-gonic/gin"
 )
 
