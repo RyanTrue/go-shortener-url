@@ -13,9 +13,10 @@ type urlService struct {
 }
 
 func (u *urlService) ShortenURL(body string) string {
-	sha1 := md5.Sum([]byte(body))
-	hash := fmt.Sprintf("sha1-%s", hex.EncodeToString(sha1[:]))
-	shortURL := fmt.Sprintf("%s/short/%s", u.config.Server.DefaultAddr, hash)
+	hasher := md5.New()
+	hasher.Write([]byte(body))
+	hash := hex.EncodeToString(hasher.Sum(nil))[:8]
+	shortURL := fmt.Sprintf("%s/%s", u.config.Server.DefaultAddr, hash)
 	if _, ok := u.repo[hash]; !ok {
 		u.repo[hash] = body
 	}
