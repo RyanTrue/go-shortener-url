@@ -1,11 +1,10 @@
 package storage
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
+	"crypto/md5"
+	"encoding/hex"
 	"fmt"
 	"github.com/RyanTrue/go-shortener-url.git/internal/common/config"
-	"net/url"
 )
 
 type urlService struct {
@@ -13,22 +12,14 @@ type urlService struct {
 	config config.AppConfig
 }
 
-func (u urlService) ShortenURL(body string) string {
-	hasher := hmac.New(sha256.New, []byte(u.config.Server.ServerAddr))
-	_, err := hasher.Write([]byte(fmt.Sprintf("http://%s/api/v1/shorten_url?url=%s", u.config.Server.ServerAddr, url.QueryEscape(body))))
-	if err != nil {
-		return ""
+func (u *urlService) ShortenURL(body string) string {
+	hasher := md5.New()
+	hasher.Write([]byte(body))
+	hash := hex.EncodeToString(hasher.Sum(nil))[:8]
+	shortURL := fmt.Sprintf("%s/%s", u.config.Server.DefaultAddr, hash)
+	if _, ok := u.repo[hash]; !ok {
+		u.repo[hash] = body
 	}
-	h := hasher.Sum(nil)
-	shortURL := ""
-	for i := 0; i < 8; i++ {
-		shortURL += string(h[i])
-	}
-	url, err := url.ParseRequestURI(shortURL)
-	if err != nil {
-		return ""
-	}
-	u.repo[url.String()] = body
 	return shortURL
 }
 
