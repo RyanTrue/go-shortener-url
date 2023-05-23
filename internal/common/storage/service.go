@@ -1,4 +1,4 @@
-package service
+package storage
 
 import "github.com/RyanTrue/go-shortener-url.git/internal/common/config"
 

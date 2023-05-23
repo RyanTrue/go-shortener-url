@@ -3,7 +3,7 @@ package handler
 import (
 	"flag"
 	"github.com/RyanTrue/go-shortener-url.git/internal/common/config"
-	"github.com/RyanTrue/go-shortener-url.git/internal/common/service"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/storage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/http/httptest"
@@ -52,6 +52,7 @@ func TestShortenURL(t *testing.T) {
 	}
 
 	for _, test := range tests {
+		test := test
 		t.Run(test.name, func(t *testing.T) {
 			w := httptest.NewRecorder()
 			с, _ := gin.CreateTestContext(w)
@@ -59,7 +60,7 @@ func TestShortenURL(t *testing.T) {
 			с.Request, _ = http.NewRequest(test.method, test.url, strings.NewReader(test.body))
 
 			h := Handler{
-				services: service.NewServiceContainer(testVault, appConfig),
+				services: storage.NewServiceContainer(testVault, appConfig),
 			}
 			h.ShortenURL(с)
 

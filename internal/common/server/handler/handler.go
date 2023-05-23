@@ -1,15 +1,15 @@
 package handler
 
 import (
-	"github.com/RyanTrue/go-shortener-url.git/internal/common/service"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/storage"
 	"github.com/gin-gonic/gin"
 )
 
 type Handler struct {
-	services *service.ServiceContainer
+	services *storage.ServiceContainer
 }
 
-func NewHandler(services *service.ServiceContainer) *Handler {
+func NewHandler(services *storage.ServiceContainer) *Handler {
 	return &Handler{
 		services: services,
 	}

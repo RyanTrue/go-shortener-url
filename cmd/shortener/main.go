@@ -5,7 +5,7 @@ import (
 	"github.com/RyanTrue/go-shortener-url.git/internal/common/config"
 	"github.com/RyanTrue/go-shortener-url.git/internal/common/server"
 	"github.com/RyanTrue/go-shortener-url.git/internal/common/server/handler"
-	"github.com/RyanTrue/go-shortener-url.git/internal/common/service"
+	"github.com/RyanTrue/go-shortener-url.git/internal/common/storage"
 	"log"
 )
 
@@ -14,11 +14,9 @@ func main() {
 	appConfig.InitAppConfig()
 	flag.Parse()
 
-	repo := make(map[string]string)
-
-	services := service.NewServiceContainer(repo, appConfig)
+	services := storage.NewServiceContainer(make(map[string]string), appConfig)
 	handler := handler.NewHandler(services)
-	server := new(server.Server)
+	server := &server.Server{}
 
 	if err := server.Run(appConfig.Server.ServerAddr, handler.InitRoutes()); err != nil {
 		log.Fatal(err)

@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -12,7 +12,7 @@ func (h *Handler) ShortenURL(c *gin.Context) {
 
 	defer func(body io.ReadCloser) {
 		if err := body.Close(); err != nil {
-			fmt.Printf("Failed to close body: %v", err)
+			log.Fatal(err)
 		}
 	}(body)
 
