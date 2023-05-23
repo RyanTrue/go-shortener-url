@@ -29,7 +29,7 @@ func (u urlService) ShortenURL(body string) string {
 		return ""
 	}
 	u.repo[url.String()] = body
-	return url.String()
+	return shortURL
 }
 
 func (u *urlService) ExpandURL(path string) (string, error) {
