@@ -1,8 +1,7 @@
 package storage
 
 import (
-	"crypto/md5"
-	"encoding/hex"
+	"crypto/sha256"
 	"fmt"
 	"github.com/RyanTrue/go-shortener-url.git/internal/common/config"
 )
@@ -13,14 +12,18 @@ type urlService struct {
 }
 
 func (u *urlService) ShortenURL(body string) string {
-	hasher := md5.New()
-	hasher.Write([]byte(body))
-	hash := hex.EncodeToString(hasher.Sum(nil))[:8]
-	shortURL := fmt.Sprintf("%s/%s", u.config.Server.DefaultAddr, hash)
-	if _, ok := u.repo[hash]; !ok {
-		u.repo[hash] = body
+	hasher := sha256.New()                                              // используем SHA256 для безопасности
+	hasher.Write([]byte(body))                                          // хешируем тело запроса
+	hash := fmt.Sprintf("%x", hasher.Sum(nil)[:8])                      // преобразуем хеш в шестнадцатеричное представление
+	shortURL := fmt.Sprintf("%s/%s", u.config.Server.DefaultAddr, hash) // создаем короткий URL
+
+	// проверяем, существует ли уже созданный короткий URL для данного тела запроса
+	if _, ok := u.repo[hash]; ok {
+		return ""
 	}
-	return shortURL
+
+	u.repo[hash] = body // обновляем значение в хранилище
+	return shortURL     // возвращаем короткий URL без ошибок
 }
 
 func (u *urlService) ExpandURL(path string) (string, error) {
